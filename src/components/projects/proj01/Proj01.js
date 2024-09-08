@@ -9,10 +9,12 @@ import ssd_church from '../../../static/proj01/ssd_aligned_church.jpg';
 import ncc_harvesters from '../../../static/proj01/ncc_aligned_harvesters.jpg';
 import sad_harvesters from '../../../static/proj01/sad_aligned_harvesters.jpg';
 import ssd_harvesters from '../../../static/proj01/ssd_aligned_harvesters.jpg';
+import ncc_eq_harvesters from '../../../static/proj01/ncc_eq_aligned_harvesters.jpg';
 
 import ncc_icon from '../../../static/proj01/ncc_aligned_icon.jpg';
 import sad_icon from '../../../static/proj01/sad_aligned_icon.jpg';
 import ssd_icon from '../../../static/proj01/ssd_aligned_icon.jpg';
+import ncc_eq_icon from '../../../static/proj01/ncc_eq_aligned_icon.jpg';
 
 import ncc_tobolsk from '../../../static/proj01/ncc_aligned_tobolsk.jpg';
 import sad_tobolsk from '../../../static/proj01/sad_aligned_tobolsk.jpg';
@@ -20,6 +22,8 @@ import ssd_tobolsk from '../../../static/proj01/ssd_aligned_tobolsk.jpg';
 
 import ncc_emir from '../../../static/proj01/ncc_aligned_emir.jpg';
 import ssim_emir from '../../../static/proj01/ssim_aligned_emir.jpg';
+import ssim_eq_emir from '../../../static/proj01/ssim_eq_aligned_emir.jpg';
+
 
 const Proj01 = () => {
 
@@ -41,9 +45,18 @@ const Proj01 = () => {
         {image: ssd_tobolsk, caption: 'img: tobolsk.jpg, metric: SSD, runtime: 0.03s, green shift: (3, 3), red shift: (-21, 15)'},
     ]
 
+    const contrastData = [
+        {image: ncc_icon, caption: 'img: icon.tif, metric: NCC, no histogram equalization'},
+        {image: ncc_eq_icon, caption: 'img: icon.tif, metric: NCC, with histogram equalization'},
+        {image: ssim_emir, caption: 'img: emir.tif, metric: SSIM, no histogram equalization'},
+        {image: ssim_eq_emir, caption: 'img: emir.tif, metric: SSIM, with histogram equalization'},
+        {image: ncc_harvesters, caption: 'img: harvesters.tif, metric: NCC, no histogram equalization'},
+        {image: ncc_eq_harvesters, caption: 'img: harvesters.tif, metric: NCC, with histogram equalization'},
+    ]
+
     return (
         <div className="main">
-            <h1 className="main-header">Project #1: Single-Channel to Multi-Channel Image Alignment</h1>
+            <h1 className="main-header">Project #1: Images of the Russian Empire: Colorizing the Prokudin-Gorskii photo collection</h1>
             <div className="content">
                 <h1 className="lvl2-header">Overview</h1>
                 <p className="text">
@@ -89,7 +102,7 @@ const Proj01 = () => {
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {imageData.map((item, index) => (
                         <div key={index} style={{ textAlign: 'center' }}>
-                        <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '200px' }} />
+                        <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '300px' }} />
                         <p>{item.caption}</p>
                         </div>
                     ))}
@@ -131,6 +144,40 @@ const Proj01 = () => {
                     Clearly, we see a drastic increase in alignment quality using SSIM, showing that our use of this more advanced metric has clear advantages over more naive metrics like NCC. However,
                     we must also notice that the runtime of SSIM is significantly higher than NCC (since it is computationally more expensive as well). Instead of taking ~3 seconds (NCC), SSIM takes over a minute
                     to run on most of the large TIF images. Nonetheless, its performance in this case seems to be worth the increased runtime.
+                </p>
+                <h1 className="lvl3-header">Histogram Equalization for Contrast</h1>
+                <p className="text">
+                    Another form of image preprocessing we can test is histogram equalization for increased contrast. By using this, we should be able to see more defined features, and more contrasted colors, in the resulting 
+                    three-channel image. Here are some samples that show clearly the effects of histogram equalization on the alignment process.
+                </p>
+                <div className="image-div">
+                    <img className="single-image" src={ssim_emir} style={{ width: '100%', height: 'auto', maxWidth: '500px' }}></img>
+                    <p className="text">img: emir.tif, metric: SSIM, runtime: 78.19s, green shift: (23, 50), red shift: (40, 105)</p>
+                </div>
+                <br /><br />
+                <p className="text">
+                    Clearly, we see a drastic increase in alignment quality using SSIM, showing that our use of this more advanced metric has clear advantages over more naive metrics like NCC. However,
+                    we must also notice that the runtime of SSIM is significantly higher than NCC (since it is computationally more expensive as well). Instead of taking ~3 seconds (NCC), SSIM takes over a minute
+                    to run on most of the large TIF images. Nonetheless, its performance in this case seems to be worth the increased runtime.
+                </p>
+                <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '40px' }}>
+                    {contrastData.map((item, index) => (
+                        <div key={index} style={{ textAlign: 'center' }}>
+                        <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '500px' }} />
+                        <p>{item.caption}</p>
+                        </div>
+                    ))}
+                </div>
+                <br /><br />
+                <p className="text">
+                    In all three samples, we see that using this contrast-enhancing technique leads to a more diverse color range in the resulting image. In the case of Emir, specifically, this contrast serves to highlight
+                    a far greater level of detail, allowing the final image to be closer in granularity to the grayscale input images. 
+                </p>
+                <h1 className="lvl2-header">Conclusion</h1>
+                <p className="text">
+                    In this project, we successfully colorize grayscale images taken with different color filters by experimenting with different image alignment techniques. We found that the SSIM metric for calculating error between
+                    two images is more effective than the three base pixelwise metrics we tested. While this comes with added computational expense, our use of pyramid search and multithreading keeps the runtime reasonable. Finally, 
+                    we explore how using histogrma equalization to increase input image contrast leads to more colorful final images. 
                 </p>
                 <br></br><br></br>
             </div>
