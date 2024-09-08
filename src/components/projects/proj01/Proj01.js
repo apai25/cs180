@@ -150,16 +150,6 @@ const Proj01 = () => {
                     Another form of image preprocessing we can test is histogram equalization for increased contrast. By using this, we should be able to see more defined features, and more contrasted colors, in the resulting 
                     three-channel image. Here are some samples that show clearly the effects of histogram equalization on the alignment process.
                 </p>
-                <div className="image-div">
-                    <img className="single-image" src={ssim_emir} style={{ width: '100%', height: 'auto', maxWidth: '500px' }}></img>
-                    <p className="text">img: emir.tif, metric: SSIM, runtime: 78.19s, green shift: (23, 50), red shift: (40, 105)</p>
-                </div>
-                <br /><br />
-                <p className="text">
-                    Clearly, we see a drastic increase in alignment quality using SSIM, showing that our use of this more advanced metric has clear advantages over more naive metrics like NCC. However,
-                    we must also notice that the runtime of SSIM is significantly higher than NCC (since it is computationally more expensive as well). Instead of taking ~3 seconds (NCC), SSIM takes over a minute
-                    to run on most of the large TIF images. Nonetheless, its performance in this case seems to be worth the increased runtime.
-                </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {contrastData.map((item, index) => (
                         <div key={index} style={{ textAlign: 'center' }}>
