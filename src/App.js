@@ -8,8 +8,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/cs180" element={<Home />} />
-        <Route exact path="/cs180/proj01" element={<Proj01 />} />
+        <Route path="/#/cs180" element={<Home />} />
+        <Route path="/#/cs180/proj01" element={<Proj01 />} />
       </Routes>
     </Router>
   );
