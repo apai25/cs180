@@ -24,6 +24,7 @@ import ncc_emir from '../../../static/proj01/ncc_aligned_emir.jpg';
 import ssim_emir from '../../../static/proj01/ssim_aligned_emir.jpg';
 import ssim_eq_emir from '../../../static/proj01/ssim_eq_aligned_emir.jpg';
 
+import histogram_equalization from '../../../static/proj01/histogram_equalization.png';
 
 const Proj01 = () => {
 
@@ -148,7 +149,16 @@ const Proj01 = () => {
                 <h1 className="lvl3-header">Histogram Equalization for Contrast</h1>
                 <p className="text">
                     Another form of image preprocessing we can test is histogram equalization for increased contrast. By using this, we should be able to see more defined features, and more contrasted colors, in the resulting 
-                    three-channel image. Here are some samples that show clearly the effects of histogram equalization on the alignment process.
+                    three-channel image. We can visualize the pixel distribution of an image using a histogram, which will show the frequency of each pixel value in the image. By "equalizing" the histogram, aim to flatten
+                    any peaks in the distribution, which will help pixel values take on a larger (X-axis) range. 
+                </p>
+                <div className="image-div">
+                    <img className="single-image" src={histogram_equalization} style={{ width: '100%', height: 'auto', maxWidth: '500px' }}></img>
+                    <p className="text">Intuitive visualization of histogram equalization</p>
+                </div>
+                <br /><br />
+                <p className="text">
+                    While this is good in theory, how does histogram equalization perform in practice? We can examine some samples below.
                 </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {contrastData.map((item, index) => (
