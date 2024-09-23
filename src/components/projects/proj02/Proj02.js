@@ -22,10 +22,6 @@ import dog_binarized from '../../../static/proj02/1-2/dog_binarized.png';
 
 import taj from '../../../static/proj02/2-1/taj.jpg';
 import moon from '../../../static/proj02/2-1/moon.png';
-import blurred_taj from '../../../static/proj02/2-1/blurred_taj.jpg';
-import blurred_moon from '../../../static/proj02/2-1/blurred_moon.png';
-import high_frequency_taj from '../../../static/proj02/2-1/high_frequency_taj.jpg';
-import high_frequency_moon from '../../../static/proj02/2-1/high_frequency_moon.png';
 import sharpened_taj from '../../../static/proj02/2-1/sharpened_taj.jpg';
 import sharpened_moon from '../../../static/proj02/2-1/sharpened_moon.png';
 import cat from '../../../static/proj02/2-1/cat.jpg';
@@ -210,12 +206,8 @@ const Proj02 = () => {
 
     const data_2_1_1 = [
         {image: taj, caption: "Original Taj Mahal"},
-        {image: blurred_taj, caption: "Blurred Taj Mahal"},
-        {image: high_frequency_taj, caption: "High frequency features of the Taj Mahal"},
         {image: sharpened_taj, caption: "Sharpened Taj Mahal"},
         {image: moon, caption: "Original Moon"},
-        {image: blurred_moon, caption: "Blurred Moon"},
-        {image: high_frequency_moon, caption: "High frequency features of the Moon (zoom in)"},
         {image: sharpened_moon, caption: "Sharpened Moon"}
     ]
 
@@ -489,7 +481,7 @@ const Proj02 = () => {
                     img_blurred. To extract the high-frequency features, we calculate high_freq_img = img - img_blurred. To sharpen the original, we calculate: img_sharpened = img + alpha * high_freq_img, where
                     alpha is some real constant. We use a Gaussian kernel of size 15x15 with sigma = 15 / 6.0. We set alpha = 3.0. 
                 </p>
-                <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginTop: '40px' }}>
+                <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {data_2_1_1.map((item, index) => (
                         <div key={index} style={{ textAlign: 'center' }}>
                         <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '300px' }} />
