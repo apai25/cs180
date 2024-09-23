@@ -176,16 +176,16 @@ const Proj02 = () => {
 
     const data_1_1 = [
         {image: cameraman, caption: "Original cameraman"},
-        {image: partial_dx, caption: "Partial derivative in x direction"},
-        {image: partial_dy, caption: "Partial derivative in y direction"},
+        {image: partial_dx, caption: "dx"},
+        {image: partial_dy, caption: "dy"},
         {image: magnitude_gradient, caption: "Gradient magnitude"},
         {image: binarized, caption: "Binarized gradient magnitude"}
     ]
 
     const data_1_2_1 = [
         {image: cameraman, caption: "Original cameraman"},
-        {image: blur_fin_diff_partial_dx, caption: "Partial derivative in x direction"},
-        {image: blur_fin_diff_partial_dy, caption: "Partial derivative in y direction"},
+        {image: blur_fin_diff_partial_dx, caption: "dx"},
+        {image: blur_fin_diff_partial_dy, caption: "dy"},
         {image: blur_fin_diff_magnitude_gradient, caption: "Gradient magnitude"},
         {image: blur_fin_diff_binarized, caption: "Binarized gradient magnitude"}
     ]
@@ -197,8 +197,8 @@ const Proj02 = () => {
 
     const data_1_2_2 = [
         {image: cameraman, caption: "Original cameraman"},
-        {image: dog_partial_dx, caption: "Partial derivative in x direction"},
-        {image: dog_partial_dy, caption: "Partial derivative in y direction"},
+        {image: dog_partial_dx, caption: "dx"},
+        {image: dog_partial_dy, caption: "dy"},
         {image: dog_magnitude_gradient, caption: "Gradient magnitude"},
         {image: dog_binarized, caption: "Binarized gradient magnitude"}
     ]
