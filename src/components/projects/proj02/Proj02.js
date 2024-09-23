@@ -191,8 +191,8 @@ const Proj02 = () => {
     ]
 
     const data_1_2_filters = [
-        {image: dog_dx, caption: "Derivative of Gaussian in x direction"},
-        {image: dog_dy, caption: "Derivative of Gaussian in y direction"}
+        {image: dog_dx, caption: "Derivative of Gaussian (dx)"},
+        {image: dog_dy, caption: "Derivative of Gaussian (dy)"}
     ]
 
     const data_1_2_2 = [
