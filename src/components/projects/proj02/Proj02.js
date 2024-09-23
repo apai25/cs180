@@ -479,7 +479,8 @@ const Proj02 = () => {
                 <p className="text">
                     In this section, we will explore how we can use low-pass filtering to sharpen an. More specifically, we will use a Gaussian filter to blur an input img, resulting in 
                     img_blurred. To extract the high-frequency features, we calculate high_freq_img = img - img_blurred. To sharpen the original, we calculate: img_sharpened = img + alpha * high_freq_img, where
-                    alpha is some real constant. We use a Gaussian kernel of size 15x15 with sigma = 15 / 6.0. We set alpha = 3.0. 
+                    alpha is some real constant. Turns out, we can optimize this in a single convolution operation that we call the "unsharp mask". The kernel we use for unsharp masking is calculated by:
+                    unsharp_mask = (1 + alpha) * unit_impulse - alpha * gaussian_kernel. We use a Gaussian kernel of size 15x15 with sigma = 15 / 6.0. We set alpha = 3.0. 
                 </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {data_2_1_1.map((item, index) => (
