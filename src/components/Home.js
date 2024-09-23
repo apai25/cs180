@@ -16,6 +16,12 @@ const Home = () => {
                         to produce a single colored image. 
                     </p>
                 </div>
+                <div className="project-entry">
+                    <h2 className="project-header"><Link to="/proj02"className="link">Project #2: Fun With Filters and Frequencies</Link></h2>
+                    <p className="project-desc">
+                        In this project, we use our learning on filters and frequencies for image sharpening, hybridization, and blending.
+                    </p>
+                </div>
             </div>
         </div>
     );
