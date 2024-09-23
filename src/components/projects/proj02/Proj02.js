@@ -676,6 +676,8 @@ const Proj02 = () => {
                 <h1 className="lvl2-header">Conclusion</h1>
                 <p className="text">
                     In this project, we cover a variety of topics in filtering and frequencies, and explored how we can use these concepts for image hybridization and multiresolution blending.
+                    For me, the most important part of this project was the portion about hybridization. I found it fascinating how we can use different image frequencies to determine which features of 
+                    an image stand out to a viewer, and at what viewing distance. 
                 </p>
                 <br/><br/><br/><br/>
             </div>
