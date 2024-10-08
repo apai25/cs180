@@ -22,6 +22,12 @@ const Home = () => {
                         In this project, we use our learning on filters and frequencies for image sharpening, hybridization, and blending.
                     </p>
                 </div>
+                <div className="project-entry">
+                    <h2 className="project-header"><Link to="/proj03"className="link">Project #3: Face Morphing</Link></h2>
+                    <p className="project-desc">
+                        In this project, we use our learning on image morphing and image averaging to create various face morphing + cross-disolving effects.
+                    </p>
+                </div>
             </div>
         </div>
     );
