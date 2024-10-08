@@ -163,8 +163,9 @@ const Proj03 = () => {
                     <br/><br/>
                     Before showing the results, let's discuss this in more detail. Using the average correspondences calculated in the previous part, we obtain a set of triangles
                     using Delaunay's triangulation algorithm. We then calculate two affine transformation matrices for each triangle: one maps Kanye's triangle to the average, and one maps 
-                    Jay-Z's triangle to the average. We then use inverse warping to map each pixel in the average image to the corresponding pixel in the two images. We interpolate in the case that
-                    the pixel coords in the source image are not integers. Finally, we cross-dissolve the result to get the final pixel value.  
+                    Jay-Z's triangle to the average. We then use inverse warping to map each pixel in the average image to the corresponding pixel in the two images. To find the set of pixels
+                    within each triangle, we use the <code>polygon</code>, as mentioned in the project spec.We interpolate in the case that the pixel coords in the source image are not integers. 
+                    Finally, we cross-dissolve the result to get the final pixel value.  
                 </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {data_2_midway.map((item, index) => (
@@ -179,7 +180,8 @@ const Proj03 = () => {
                     Now, the fun part! We can create an entire sequence of morphs by changing our warp and cross-dissolve weights over time. Let our warp weight and cross-dissolve weights
                     be represented by <code>alpha</code>. Then, we can create a sequence of images by varying <code>alpha</code> from 0 to 1. Our average keypoint would be defined by: 
                     <code> p_avg = p1 * alpha + p2 * (1 - alpha)</code>. We adopt a similar approach for cross-dissolving, with the same parameter. We linearly change <code>alpha</code> over time
-                    to create a smooth morphing effect. This is essentially following the same pattern of logic as part #2, except we vary the parameter <code>alpha</code> over time.
+                    to create a smooth morphing effect. This is essentially following the same pattern of logic as part #2, except we vary the parameter <code>alpha</code> over time. We have a morph
+                    of 50 frames, where each frame has a duration of 30ms.
                 </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {data_3_morph.map((item, index) => (
@@ -198,7 +200,9 @@ const Proj03 = () => {
                 <p className="text">
                     Before jumping into facial image averaging, let's first explore our dataset. For this task, I chose to use the FEI dataset, which contains images of 200 individuals with both neutral
                     and smiling facial expressions. The images are already quite well-aligned, which makes this data easy to work with for our purposes. To try to get the most precise results, 
-                    I chose to average the neutral and smiling images of each individual separately. This way, we can capture the mean "smiling" and the mean "neutral" face.
+                    I chose to average the neutral and smiling images of each individual separately. This way, we can capture the mean "smiling" and the mean "neutral" face. The annotations are provided
+                    in .pts files, which contain the correspondences of each face. Each face has 46 correspondences, but I added four extra keypoints to represent the corners of the image. This results in 50 total
+                    correspondences.
                 </p>
                 <h1 className="lvl3-header">Mean Faces of the Population</h1>
                 <p className="text">
@@ -236,7 +240,8 @@ const Proj03 = () => {
                 
                 <h1 className="lvl3-header">Warping My (Ani's) Face to the Average Neutral Shape in FEI</h1>
                 <p className="text">
-                    There seem to be clearly visible effects of warping faces in the population to the average shape. What if we tried this on my face? 
+                    There seem to be clearly visible effects of warping faces in the population to the average shape. What if we tried this on my face? Once again, note that we are warping to the average shape, not just taking
+                    a naive average between my face and that of the mean face in the dataset.
                 </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '40px' }}>
                     {data_4_ani_to_avg.map((item, index) => (
