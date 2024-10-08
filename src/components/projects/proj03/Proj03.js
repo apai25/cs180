@@ -330,6 +330,7 @@ const Proj03 = () => {
                     What I found most interesting/fun about this project was learning about triangulation, and how it can be used to create smooth morphing effects by facilitating local warping. I enjoyed implementing this portion
                     of the project as well.
                 </p>
+            <br/><br/><br/><br/>
             </div>
         </div>
     );
