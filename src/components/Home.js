@@ -28,6 +28,13 @@ const Home = () => {
                         In this project, we use our learning on image morphing and image averaging to create various face morphing + cross-disolving effects.
                     </p>
                 </div>
+                <div className="project-entry">
+                    <h2 className="project-header"><Link to="/proj04"className="link">Project #4: (Auto)stitching and Photo Mosaics</Link></h2>
+                    <p className="project-desc">
+                        In this project, we use a combination of homography calculation and image blending to both rectify images and create photo mosaics. In part B, we come up with ways to 
+                        automatically find correspondence points between images, enabling us to automate this process. 
+                    </p>
+                </div>
             </div>
         </div>
     );
