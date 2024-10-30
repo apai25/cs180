@@ -59,6 +59,9 @@ import crescent_lawn0_harris from '../../../static/proj04/crescent_lawn/harris0.
 import crescent_lawn1_harris from '../../../static/proj04/crescent_lawn/harris1.png'
 import crescent_lawn2_harris from '../../../static/proj04/crescent_lawn/harris2.png'
 import crescent_lawn3_harris from '../../../static/proj04/crescent_lawn/harris3.png'
+import crescent_lawn0_patches from '../../../static/proj04/crescent_lawn/patches0.png'
+import crescent_lawn0_invariant_patches from '../../../static/proj04/crescent_lawn/rot_invariant_patches0.png'
+import crescent_lawn_auto_ransac_rot_invariant_mosaic from '../../../static/proj04/crescent_lawn/crescent_lawn_auto_ransac_rot_invariant_mosaic.jpg'
 
 
 
@@ -386,12 +389,42 @@ const Proj04 = () => {
                 automated pipeline is working as intended! There are slight differences between the two (if we zoom in carefully), but I'm happy with these results overall. While manually finding correspondence points
                 ensures that we have the most accurate homographies, the automated pipeline is far more efficient and can be used for new images without much hassle (aside from hyper-parameter tuning.)
             </p>
+            <h1 className="lvl2-header">Bells & Whistles</h1>
+            <h1 className="lvl3-header">Rotation-Invariant Feature Descriptors</h1>
+            <p className="text">
+                One of the bells and whistles I implemented was rotation-invariant feature descriptors from SIFT. I calculate the gradient of the feature window in both the x and y directions, and then the magnitude of the gradient. 
+                I do this for each pixel in the window, and then find the orientation of the gradient with arctan(grad_y, grad_x). After ensuring all angles are positive, I then create a histogram of the gradient orientations.
+                I choose the peak of the histogram as the final orientation for the window, and then rotate the window by this angle about its center. I then extract the feature descriptor as normal. Below I show the results
+                of this rotation-invariant feature descriptor extraction on the Berkeley City image.
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px', marginTop: '30px' }}>
+                {[
+                    {image: crescent_lawn0_patches, caption: "Regular Feature Descriptors"},
+                    {image: crescent_lawn0_invariant_patches, caption: "Rotation-Invariant Feature Descriptors"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '500px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br></br><br></br>
+            <p className="text">
+                Some of the rotation-invariant feature descriptors may not exactly look like the rotated version of their regular counterparts, but this is becasue rotation of the patches can lead to clipping of the image. When normalizing, 
+                this leads to different-looking feature descriptors. However, I found that, for the most part, this did not affect the mosaic negatively in any way. In fact, I think that the crescent law rotation-invariant feature descriptor based
+                mosaic looks better than the regular feature descriptor based mosaic.
+            </p>
+            <br></br><br></br>
+            <img src={crescent_lawn_auto_ransac_rot_invariant_mosaic} style={{ width: '100%', height: 'auto', maxWidth: '500px', marginLeft: '25%'}} /> 
             <h1 className="lvl2-header">Conclusion</h1>
             <p className="text">
                 All in all, I found this project to be very interesting! I learned a lot about how homographies can be used to create perspective shifts in images, and how they can be used to stitch images together. 
                 I thought that the RANSAC algorithm to compute homographies was really interesting, and I'm glad I got to implement it. I also liked how this project drives us to read a research apper on our own, understand it, and then 
                 implement parts of it. Coolest part was definitely seeing the mosaics come together at the end using the automated pipeline. 
             </p>
+            <br></br><br></br><br></br><br></br>
+            
+
         </div>
     );
 }
