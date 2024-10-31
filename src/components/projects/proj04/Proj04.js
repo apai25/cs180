@@ -162,7 +162,7 @@ const Proj04 = () => {
                         {image: berkeley_city_pts3_23, caption: "Img 3, pts between 2 and 3"},
                     ].map((item, index) => (
                         <div key={index} style={{ textAlign: 'center' }}>
-                        <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '300px' }} />
+                        <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '500px' }} />
                         <p>{item.caption}</p>
                         </div>
                     ))}
@@ -392,9 +392,9 @@ const Proj04 = () => {
             <h1 className="lvl2-header">Bells & Whistles</h1>
             <h1 className="lvl3-header">Rotation-Invariant Feature Descriptors</h1>
             <p className="text">
-                One of the bells and whistles I implemented was rotation-invariant feature descriptors from SIFT. I calculate the gradient of the feature window in both the x and y directions, and then the magnitude of the gradient. 
-                I do this for each pixel in the window, and then find the orientation of the gradient with arctan(grad_y, grad_x). After ensuring all angles are positive, I then create a histogram of the gradient orientations.
-                I choose the peak of the histogram as the final orientation for the window, and then rotate the window by this angle about its center. I then extract the feature descriptor as normal. Below I show the results
+                One of the bells and whistles I implemented was rotation-invariant feature descriptors from SIFT. After extracting a grayscale patch as normal, I calculate the gradient of the feature patch in both the x and y directions, and then the magnitude of the gradient. 
+                I do this for each pixel in the patch, and then find the orientation of the gradient with arctan(grad_y, grad_x). After ensuring all angles are positive, I then create a histogram of the gradient orientations (with 10-degree bins).
+                I choose the peak of the histogram as the final orientation for the patch, and then rotate the patch by this angle about its center. I then bias/gain-noramlize the descriptor as normal. Below I show the results
                 of this rotation-invariant feature descriptor extraction on the Berkeley City image.
             </p>
             <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px', marginTop: '30px' }}>
