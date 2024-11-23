@@ -158,6 +158,22 @@ import skull_waterfall from '../../../static/proj05/a/1_9/skull_waterfall.png';
 import santa_house from '../../../static/proj05/a/1_9/santa_house.png';
 import hulk_forest_scene from '../../../static/proj05/a/1_9/hulk_forest_scene.png';
 
+import noising_visual from '../../../static/proj05/b/1/noising_visual.png'
+import ep1 from '../../../static/proj05/b/1/ep1.png';
+import ep5 from '../../../static/proj05/b/1/ep5.png';
+import train_loss from '../../../static/proj05/b/1/train_loss.png';
+import ood_testing from '../../../static/proj05/b/1/ood_testing.png';
+
+import ep5_time_cond from '../../../static/proj05/b/2_1/ep5.png';
+import ep20_time_cond from '../../../static/proj05/b/2_1/ep20.png';
+import train_loss_time_cond from '../../../static/proj05/b/2_1/train_loss.png'; 
+
+import ep5_class_cond from '../../../static/proj05/b/2_2/ep5.png';
+import ep20_class_cond from '../../../static/proj05/b/2_2/ep20.png';
+import train_loss_class_cond from '../../../static/proj05/b/2_2/train_losses.png';
+
+import course_logo from '../../../static/proj05/a/bw_course_logo/course_logo.png'
+
 const Proj04 = () => {
     return (
         <div className="main">
@@ -653,6 +669,172 @@ const Proj04 = () => {
                 Try looking at the smaller image and squinting to see the low frequency components of the hybrid image,
                 and the larger image without squinting to see the high frequency components
             </p>
+            <h1 className="lvl2-header">Part B: Diffusion Models from Scratch</h1>
+            <p className="text">
+                In this portion of the project, we will train our own unconditioned, time-conditioned, and class-conditioned diffusion models from scratch using 
+                the standard diffusion architecture from Denoising Diffusion Probabilistic Models. We will train them to generate numbers using the MNIST dataset.
+            </p>
+            <h1 className="lvl3-header">Part 1: Implementing the UNet</h1>
+            <p className="text">
+                In this section, we implement the standard UNet architecture in PyTorch, without any conditioning. The UNet is a convolutional neural network that is used to 
+                denoise images. It is composed of a series of down convolution blocks and up convolution blocks, with skip connections between thw two. The idea is that 
+                the skip connections can help feed forward some information to later layers that would have been lost when downsampling the size of the feature maps. I'll omit the 
+                specifics of the implementation since they are already readily available in the project spec. 
+                <br/><br/>
+                After implementing the UNet, we can train it on the MNIST dataset. The way we can do this is by randomly noising the image with some <InlineMath math="\sigma\epsilon"></InlineMath> noise, and then training 
+                the UNet to predict the added noise <InlineMath math="\epsilon"></InlineMath>. We can then use the UNet to denoise the image by subtracting the predicted noise from the noisy image.
+                <br/><br/>
+                Let's first visualize the noising process to get a better understanding of how it will work. Mathematically, we can noise an image <InlineMath math="x"></InlineMath> to get <InlineMath math="z=x+\sigma\epsilon"></InlineMath>,
+                where <InlineMath math="\epsilon \sim N(0,I)"></InlineMath>. Let's see how this will work for varying values of <InlineMath math="\sigma"></InlineMath>.
+                <br/>
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <img src={noising_visual} style={{}} alt="Noising Visual" />
+            </div>
+            <p className="text">
+                As we can see, as we increase the value of sigma, the greater the noise added to the image is. This is relatively intuitive. Now, we can begin training the UNet
+                to predict noise when sigma = 0.5. We get input images from the MNIST dataset, add noise to them, and then train on the MSE loss between the predicted noise output from the UNet and the actual noise. 
+                Here are the results. I use the the default hyperparameters from the project spec for all parts of this project (aside from any bells & whistles). I trained for a total of five epochs.
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: train_loss, caption: "Training Loss"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: ep1, caption: "Epoch #1 Denoising Results (sigma=0.5)"},
+                    {image: ep5, caption: "Epoch #5 Denoising Results (sigma=0.5)"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '450px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <p className="text">
+                We should also test how this UNet performs when met with images that were noised with sigma levels not equal to 0.5 (the level at which it was trained). This will help us determine whether this UNet is truly effective in 
+                removing noise from input images, or whether it only works well up to the noise level it was trained for. 
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: ood_testing, caption: "Out-of-Distribution Testing Results"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '1000px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <p className="text">
+                As you can see, it performs pretty poorly for noise levels sigma=0.6,0.8, and 1.0. Maybe we can do better using iterative denoising, as we saw in part A. 
+            </p>
+            <h1 className="lvl3-header">Part 2: Training a Full Diffusion Model</h1>
+            <h1 className="lvl4-header">Part 2.1: Training a Time-Conditioned UNet</h1>
+            <p className="text">
+                Instead of naively one-step denoising, a diffusion model takes many inference steps to denoise an image. This means that, at each timestep, it predicts a marginal noise estimation for the image, and can "step" towards a cleaner 
+                image by moving along that noise estimation. Over many timesteps, we will end up with a more robustly denoised image compared to one-step denoising.
+                <br/><br/>
+                However, this means that we will need to modify our UNet architecture so that it can take in a time-conditioning signal upon forward. As per the project spec, we can introduce this time-conditioning signal via a small MLP (linear + GeLU + linear) that is
+                added to our unflatten output and conv1 up output. This will allow us to condition the UNet on the timestep, and thus allow us to perform iterative denoising.
+                <br/><br/>
+                When training the UNet, we can randomly take an image, along with a random sampled timestep, and then we can noise the image as per the formula <InlineMath math="x_t=\sqrt{\bar{\alpha_t}}x_0+\sqrt{1-\bar{\alpha_t}}\epsilon"></InlineMath>
+                Then, we can take training step on the L2 norm of the predicted noise from the time-conditioned UNet and the actual noise sampled from the normal distribution.
+                <br/><br/>
+                When sampling, we can do pretty much the same thing; however, instead of sampling one timestep, we iteratively denoise the image over all timesteps, updating our estimate of the clean image after each iteration (passing in complete noise at the beginning).
+                After T iterations, we should have our final noise estimate, at which point we can infer the final clean image. I train this model for 20 epochs, and show once again my results below using the default hyperparameters mentioned in the spec.
+
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: train_loss_time_cond, caption: "Training Loss"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: ep5_time_cond, caption: "Epoch #5 Sampling Results"},
+                    {image: ep20_time_cond, caption: "Epoch #20 Sampling Results"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '450px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <p>
+                As we can see, the results are a lot better, even when we start with a completely noisy image during sampling. However, they're still not ideal. Can we do better by also adding class conditioning to the model? This would also allow us to 
+                tell the model which classes of integers we want to generate, instead of it ranomly choosing some image from the training set distribution based on solely pure noise. 
+            </p>
+            <h1 className="lvl4-header">Part 2.2: Training a Class-Conditioned UNet</h1>
+            <p className="text">
+                To add class conditioned to the UNet, we can adopt a very similar approach to the one from the previous section. Given an image and its corresponding label c, we can one-hot encode the class into a 10-dimensional vector. We 
+                pass this through a small MLP (linear + GeLU + linear) that is then multiplied with the unflatten output and conv1 up output. This will allow us to condition the UNet on the class of the image we want to generate. So, we'll have two 
+                more FCBlocks (one for each of unflatten and conv1Up). Like before, we will keep our time-conditioned by simply adding it to the product of the class-conditioned latent embeddings and the corresponding layer output from the original UNet. 
+                <br/><br/>
+                When training the UNet, we can randomly sample an image from the dataset along with its class and a random timestamp. There is one nuance here; to ensure that our model can still perform independent of the class, we randomly 
+                mask the one-hot encoded class vector with a probability of 0.1. This will allow the model to experience unconditioned generation during training, which will allow it to be more generalizable after train time. 
+                <br/><br/>
+                When sampling from this class-conditioned UNet, we use a combination of two noise estimates at each timestep. We have the unconditioned noise estimate (with a masked one-hot encoded class vector), and a class-conditioned noise estimate.
+                The total noise estimate will be <InlineMath math="\epsilon=\epsilon_u+\gamma(\epsilon_c-\epsilon_u)"></InlineMath>, where <InlineMath math="\gamma"></InlineMath> is a hyperparameter that we can tune (representing the classifier-free guidance scale). 
+                You may recognize that this is a very similar approach to how we generated the hybrid images and anagrams from part A. I think this is a cool recurring theme of the project, and it's nice to see how even the smallest tweaks to our training 
+                can help make our diffusion models so much more robust and practical. Like before, I show the results below.
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: train_loss_class_cond, caption: "Training Loss"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: ep5_class_cond, caption: "Epoch #5 Sampling Results"},
+                    {image: ep20_class_cond, caption: "Epoch #20 Sampling Results"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '450px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <p className="text">
+                Clearly, we can see a much better output in terms of the generated images' quality. The class conditioning really helps the model generate more realistic images (since the class is such a strong conditioning signal), and the time conditioning helps the model denoise the images more effectively (which in-turn helps it train).
+            </p>
+            <h1 className="lvl2-header">Bells & Whistles</h1>
+            <h1 className="lvl3-header">Creating a Course Logo with DeepFloyd</h1>
+            <p className="text">
+                In part A of this project, I decided to create a course logo for CS 180 using the DeepFloyd diffusion model. I found this to be a little tedious, because DeepFloyd was a little too diverse in terms of the images it generated, which meant that course logos were hard to narrow down, even with extensive prompt conditioning. Eventually, 
+                however, I came across a prompt that generated what I think could be a very nice logo for CS 180. Here's the prompt: "A simplistic headshot of a light brown smiling cartoon bear holding a light blue camera. Image framed as a logo.". Here is the result:
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: course_logo, caption: "CS 180 Course Logo"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '450px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/><br/><br/><br/><br/>
         </div>
     );
 }
