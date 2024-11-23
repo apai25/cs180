@@ -35,6 +35,13 @@ const Home = () => {
                         automatically find correspondence points between images, enabling us to automate this process. 
                     </p>
                 </div>
+                <div className="project-entry">
+                    <h2 className="project-header"><Link to="/proj04"className="link">Project #5: Fun With Diffusion Models</Link></h2>
+                    <p className="project-desc">
+                        In this project, we thoroughly explore the versatility of modern-day diffusion models by using DeepFloyd, and then review their inner workings by 
+                        implementing our very own time-conditioned and class-conditioned UNet-based diffusion models. 
+                    </p>
+                </div>
             </div>
         </div>
     );
