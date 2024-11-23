@@ -120,6 +120,43 @@ import f1_masked_area from '../../../static/proj05/a/1_7_2/f1/download-2.png';
 import f1_inpainted from '../../../static/proj05/a/1_7_2/f1/download-3.png';
 import f1_inpainted_upsample from '../../../static/proj05/a/1_7_2/f1/download-4.png';
 
+import baby_old from '../../../static/proj05/a/1_7_3/baby_old/download.png';
+import baby_old_i1 from '../../../static/proj05/a/1_7_3/baby_old/download-1.png';
+import baby_old_i3 from '../../../static/proj05/a/1_7_3/baby_old/download-2.png';
+import baby_old_i5 from '../../../static/proj05/a/1_7_3/baby_old/download-3.png';
+import baby_old_i7 from '../../../static/proj05/a/1_7_3/baby_old/download-4.png';
+import baby_old_i10 from '../../../static/proj05/a/1_7_3/baby_old/download-5.png';
+import baby_old_i20 from '../../../static/proj05/a/1_7_3/baby_old/download-6.png';
+
+
+import camp_rock from '../../../static/proj05/a/1_7_3/camp_rock/download.png';
+import camp_rock_i1 from '../../../static/proj05/a/1_7_3/camp_rock/download-1.png';
+import camp_rock_i3 from '../../../static/proj05/a/1_7_3/camp_rock/download-2.png';
+import camp_rock_i5 from '../../../static/proj05/a/1_7_3/camp_rock/download-3.png';
+import camp_rock_i7 from '../../../static/proj05/a/1_7_3/camp_rock/download-4.png';
+import camp_rock_i10 from '../../../static/proj05/a/1_7_3/camp_rock/download-5.png';
+import camp_rock_i20 from '../../../static/proj05/a/1_7_3/camp_rock/download-6.png';
+
+import dog_lion from '../../../static/proj05/a/1_7_3/dog_lion/download.png';
+import dog_lion_i1 from '../../../static/proj05/a/1_7_3/dog_lion/download-1.png';
+import dog_lion_i3 from '../../../static/proj05/a/1_7_3/dog_lion/download-2.png';
+import dog_lion_i5 from '../../../static/proj05/a/1_7_3/dog_lion/download-3.png';
+import dog_lion_i7 from '../../../static/proj05/a/1_7_3/dog_lion/download-4.png';
+import dog_lion_i10 from '../../../static/proj05/a/1_7_3/dog_lion/download-5.png';
+import dog_lion_i20 from '../../../static/proj05/a/1_7_3/dog_lion/download-6.png';
+
+import amalfi from '../../../static/proj05/a/1_8/amalfi_hat/download.png';
+import hat from '../../../static/proj05/a/1_8/amalfi_hat/download-1.png';
+
+import camp from '../../../static/proj05/a/1_8/camp_man/download.png';
+import man from '../../../static/proj05/a/1_8/camp_man/download-1.png';
+
+import village from '../../../static/proj05/a/1_8/village_rocket/download.png';
+import rocket from '../../../static/proj05/a/1_8/village_rocket/download-1.png';
+
+import skull_waterfall from '../../../static/proj05/a/1_9/skull_waterfall.png';
+import santa_house from '../../../static/proj05/a/1_9/santa_house.png';
+import hulk_forest_scene from '../../../static/proj05/a/1_9/hulk_forest_scene.png';
 
 const Proj04 = () => {
     return (
@@ -502,6 +539,119 @@ const Proj04 = () => {
                 I was actually very surprised by the inpainting results with the F1 car. I thought it was pretty cool that the diffusion model was able to get the right color scheme
                 of the masked wing of the car, since there is nothing outside of the masked area to suggest that the wing would have a white color on it. It's possible that the model 
                 had seen a similar color scheme in the training data, since this F1 car is particularly famous. There is a slight difference in the shape of the front nose cone, though. 
+            </p>
+            <h1 className="lvl3-header">Part 1.7.3: Text-Conditional Image-to-Image Translation</h1>
+            <p className="text">
+                In this section, we do something very similar to the last couple. Instead of using a mask or noising the image in order to come up with new derivatives, however, we use a text prompt in this 
+                section in combination with input image noise. This will not only cause the diffusion model to hallucinate new features of the input image, but it'll nudge it in the direction of the prompt.
+                We can do this quite simply; we just change the CFG text prompt from "a high quality photo" to whatever hallucinations we would like the model to have. Here are some examples of this.
+            </p>
+            <br/><br/>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', marginTop: '40px' }}>
+                {[
+                    {image: camp_rock_i1, caption: "Rocketship with i_start=1"},
+                    {image: camp_rock_i3, caption: "Rocketship with i_start=3"},
+                    {image: camp_rock_i5, caption: "Rocketship with i_start=5"},
+                    {image: camp_rock_i7, caption: "Rocketship with i_start=7"},
+                    {image: camp_rock_i10, caption: "Rocketship with i_start=10"},
+                    {image: camp_rock_i20, caption: "Rocketship with i_start=20"},
+                    {image: camp_rock, caption: "Original campanille (not upsampled)"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '100px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', marginTop: '40px' }}>
+                {[
+                    {image: dog_lion_i1, caption: "Dog with i_start=1"},
+                    {image: dog_lion_i3, caption: "Dog with i_start=3"},
+                    {image: dog_lion_i5, caption: "Dog with i_start=5"},
+                    {image: dog_lion_i7, caption: "Dog with i_start=7"},
+                    {image: dog_lion_i10, caption: "Dog with i_start=10"},
+                    {image: dog_lion_i20, caption: "Dog with i_start=20"},
+                    {image: dog_lion, caption: "Original lion (not upsampled)"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '100px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', marginTop: '40px' }}>
+                {[
+                    {image: baby_old_i1, caption: "Old man with i_start=1"},
+                    {image: baby_old_i3, caption: "Old man with i_start=3"},
+                    {image: baby_old_i5, caption: "Old man with i_start=5"},
+                    {image: baby_old_i7, caption: "Old man with i_start=7"},
+                    {image: baby_old_i10, caption: "Old man with i_start=10"},
+                    {image: baby_old_i20, caption: "Old man with i_start=20"},
+                    {image: baby_old, caption: "Original baby (not upsampled)"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '100px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <h1 className="lvl3-header">Part 1.8: Visual Anagrams</h1>
+            <p className="text">
+                We can also use the diffusion model to generate visual anagrams. The idea is to generate some image that looks like another object when upside down. We can do this using our iterative denoising algorithm, albeit 
+                with some minor tweaks. We calculate a noise estimate for both the original image and the flipped version of the image at each timestep. Then, our final noise estimate is simply the average of the two individual estimates. 
+                p_1 and p_2 are simply our prompts for each flipped version of the image. Here's the math:
+                <BlockMath math="\epsilon_1 =\text{UNet}(x_t,t,p_1)"></BlockMath>
+                <BlockMath math="\epsilon_2 = \text{flip}(\text{UNet}(\text{flip}(x_t),t,p_2))"></BlockMath>
+                <BlockMath math="\epsilon = \frac{1}{2}(\epsilon_1+\epsilon_2)"></BlockMath>
+                With these noise estimates, we can generate some visual anagrams using our standard iterative denoising approach. 
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 3fr)', marginTop: '40px' }}>
+                {[
+                    {image: camp, caption: "an oil painting of people around a campfire"},
+                    {image: man, caption: "an oil painting of an old man"},
+                    {image: village, caption: "an oil painting of a snowy mountain village"},
+                    {image: rocket, caption: "a rocket ship"},
+                    {image: amalfi, caption: "a photo of the amalfi cost"},
+                    {image: hat, caption: "a man wearing a hat"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '150px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <h1 className="lvl3-header">Part 1.9: Hybrid Images</h1>
+            <p className="text">
+                Finally, we can also do something very similar to what we did in project #2, but with diffusion models. Using a clever trick with the iterative denoising algorithm, we can generate hybrid images. The main idea is similar to 
+                that in the previous part. At each timestep, we calculate a noise estimate for both the prompts. Then, we simply take the low and high-pass filtered versions of the two noise estimates, and add them together to get the final noise estimate.
+                Here's the math:
+                <BlockMath math="\epsilon_1 = \text{UNet}(x_t,t,p_1)"></BlockMath>
+                <BlockMath math="\epsilon_2 = \text{UNet}(x_t,t,p_2)"></BlockMath>
+                <BlockMath math="\epsilon = \text{lowpass}(\epsilon_1)+\text{highpass}(\epsilon_2)"></BlockMath>
+                With these noise estimates, we can generate some hybrid images using our standard iterative denoising approach.
+            </p>            
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 3fr)', marginTop: '50px' }}>
+                {[
+                    {image: <img src={skull_waterfall} style={{maxWidth: '100px'}}></img>, caption: "a lithograph of a skull"},
+                    {image: <img src={skull_waterfall} style={{maxWidth: '250px'}}></img>, caption: "a lithograph of waterfalls"},
+                    {image: <img src={santa_house} style={{maxWidth: '100px'}}></img>, caption: "a lithograph of santa's face"},
+                    {image: <img src={santa_house} style={{maxWidth: '250px'}}></img>, caption: "a lithograph of a house in snowy hills with red roofs"},
+                    {image: <img src={hulk_forest_scene} style={{maxWidth: '100px'}}></img>, caption: "a lithograph of hulk's face"},
+                    {image: <img src={hulk_forest_scene} style={{maxWidth: '250px'}}></img>, caption: "a lithograph of a forest scene"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    {item.image}
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <br/><br/>
+            <p className="text">
+                Try looking at the smaller image and squinting to see the low frequency components of the hybrid image,
+                and the larger image without squinting to see the high frequency components
             </p>
         </div>
     );
