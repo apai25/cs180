@@ -206,14 +206,14 @@ const Proj04 = () => {
                 <h1 className="lvl3-header">Part 0: Setting up DeepFloyd</h1>
                 <p className="text">
                     First, we set up the DeepFloyd model by retrieving it from HuggingFace. Then, we use the sample text prompts given to us to generate some images. We can modify 
-                    the number of inference steps taking by DeepFloyd in order to generate more detailed images (at the cost of more time).
+                    the number of inference steps taking by DeepFloyd in order to generate more detailed images (at the cost of more time). I use random seed 8374 in all parts.
                 </p>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 2fr)', gap: '15px', marginTop: '40px' }}>
                     {[
-                        {image: hat_5, caption: "An man wearing a hat (5 inference steps)"},
+                        {image: hat_5, caption: "A man wearing a hat (5 inference steps)"},
                         {image: rocket_5, caption: "A rocket ship (5 inference steps)"},
                         {image: village_5, caption: "An oil painting of a snowy mountain village (5 inference steps)"},
-                        {image: hat_100, caption: "An man wearing a hat (100 inference steps)"},
+                        {image: hat_100, caption: "A man wearing a hat (100 inference steps)"},
                         {image: rocket_100, caption: "A rocket ship (100 inference steps)"},
                         {image: village_100, caption: "An oil painting of a snowy mountain village (100 inference steps)"}
                     ].map((item, index) => (
@@ -223,6 +223,10 @@ const Proj04 = () => {
                         </div>
                     ))}
                 </div>
+                <p className="text">
+                    As we can see, the text prompts clearly match up to the images generated; however, the number of inference steps makes a big difference. As we increase the number of steps, 
+                    it seems that the images generated are of higher-quality, which is expected (we'll see why as we progress through this entire project). 
+                </p>
                 <h1 className="lvl3-header">Part 1.1: Implementing the Forward Process</h1>
                 <p className="text">
                     First, we implement the forward process, which is used to add noise to a clean image. We use the following formula: <InlineMath math="x_t=\sqrt{\bar{\alpha_t}x_0} + \sqrt{1-\bar{\alpha_t}}\epsilon"></InlineMath>, where <InlineMath math="\epsilon \sim N(0,I)"></InlineMath>
@@ -249,11 +253,11 @@ const Proj04 = () => {
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 4fr)', marginTop: '40px' }}>
                     {[
                         {image: t250, caption: "t=250 (noisy)"},
-                        {image: t250_1_2, caption: "t=250 (classically denoised)"},
+                        {image: t250_1_2, caption: "t=250 (gaussian denoised)"},
                         {image: t500, caption: "t=500 (noisy)"},
-                        {image: t500_1_2, caption: "t=500 (classically denoised)"},
+                        {image: t500_1_2, caption: "t=500 (gaussian denoised)"},
                         {image: t750, caption: "t=750 (noisy)"},
-                        {image: t750_1_2, caption: "t=750"}
+                        {image: t750_1_2, caption: "t=750 (gaussian denoised)"}
                     ].map((item, index) => (
                         <div key={index} style={{ textAlign: 'center' }}>
                         <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '150px' }} />
