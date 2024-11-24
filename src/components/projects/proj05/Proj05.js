@@ -185,6 +185,11 @@ import num_7 from '../../../static/proj05/b/bw_sampling/gifs/num_7.gif';
 import num_8 from '../../../static/proj05/b/bw_sampling/gifs/num_8.gif';
 import num_9 from '../../../static/proj05/b/bw_sampling/gifs/num_9.gif';
 
+import bw_king_kong_empire_state from '../../../static/proj05/a/bw_king_kong/download.png';
+import bw_king_kong_mask from '../../../static/proj05/a/bw_king_kong/download-1.png';
+import bw_king_kong_area from '../../../static/proj05/a/bw_king_kong/download-2.png';
+import bw_king_kong_inpainted from '../../../static/proj05/a/bw_king_kong/download-3.png';
+import bw_king_kong_upsample from '../../../static/proj05/a/bw_king_kong/download-4.png';
 
 const Proj04 = () => {
     return (
@@ -846,6 +851,29 @@ const Proj04 = () => {
                     </div>
                 ))}
             </div>
+            <h1 className="lvl3-header">Using Inpainting + Conditional Prompting Together</h1>
+            <p className="text">
+                In part A of this project, we saw how inpainting and conditional prompting could be used to generate images. I thought it would be interesting to see how these two techniques could be used together. I decided to try and 
+                generate a photo of King Kong on the empire state with just this technique. I use the prompt "a picture of king kong on a building", and a mask on the Empire State to do so. Here are the results.
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', marginTop: '40px' }}>
+                {[
+                    {image: bw_king_kong_empire_state, caption: "Original Empire State (not upsampled)"},
+                    {image: bw_king_kong_mask, caption: "Mask"},
+                    {image: bw_king_kong_area, caption: "Masked Area"},
+                    {image: bw_king_kong_inpainted, caption: "Inpainted Empire State"},
+                    {image: bw_king_kong_upsample, caption: "Inpainted Empire State (upsampled)"}
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '200px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <p className="text">
+                I think this is a pretty cool result, since it's able to take advantage of both techniques we learned; the inpainting keeps the rest of the image intact, but the conditional prompting allows us to edit the
+                masked region as we see fit.
+            </p>
             <h1 className="lvl3-header">Sampling GIFs (with class-conditioned model)</h1>
             <p className="text">
                 To see a more dynamic representation of the denoising process, we can generate a GIF containing frames from each timestep. We can use the class-conditioned sampling method to do this, except save the outputs at each timestep. Here are the results.
