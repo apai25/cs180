@@ -172,7 +172,19 @@ import ep5_class_cond from '../../../static/proj05/b/2_2/ep5.png';
 import ep20_class_cond from '../../../static/proj05/b/2_2/ep20.png';
 import train_loss_class_cond from '../../../static/proj05/b/2_2/train_losses.png';
 
-import course_logo from '../../../static/proj05/a/bw_course_logo/course_logo.png'
+import course_logo from '../../../static/proj05/a/bw_course_logo/course_logo.png';
+
+import num_0 from '../../../static/proj05/b/bw_sampling/gifs/num_0.gif';
+import num_1 from '../../../static/proj05/b/bw_sampling/gifs/num_1.gif';
+import num_2 from '../../../static/proj05/b/bw_sampling/gifs/num_2.gif';
+import num_3 from '../../../static/proj05/b/bw_sampling/gifs/num_3.gif';
+import num_4 from '../../../static/proj05/b/bw_sampling/gifs/num_4.gif';
+import num_5 from '../../../static/proj05/b/bw_sampling/gifs/num_5.gif';
+import num_6 from '../../../static/proj05/b/bw_sampling/gifs/num_6.gif';
+import num_7 from '../../../static/proj05/b/bw_sampling/gifs/num_7.gif';
+import num_8 from '../../../static/proj05/b/bw_sampling/gifs/num_8.gif';
+import num_9 from '../../../static/proj05/b/bw_sampling/gifs/num_9.gif';
+
 
 const Proj04 = () => {
     return (
@@ -834,6 +846,38 @@ const Proj04 = () => {
                     </div>
                 ))}
             </div>
+            <h1 className="lvl3-header">Sampling GIFs (with class-conditioned model)</h1>
+            <p className="text">
+                To see a more dynamic representation of the denoising process, we can generate a GIF containing frames from each timestep. We can use the class-conditioned sampling method to do this, except save the outputs at each timestep. Here are the results.
+            </p>
+            <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 2fr)', marginTop: '40px' }}>
+                {[
+                    {image: num_0, caption: "Denoising Process for 0"},
+                    {image: num_1, caption: "Denoising Process for 1"},
+                    {image: num_2, caption: "Denoising Process for 2"},
+                    {image: num_3, caption: "Denoising Process for 3"},
+                    {image: num_4, caption: "Denoising Process for 4"},
+                    {image: num_5, caption: "Denoising Process for 5"},
+                    {image: num_6, caption: "Denoising Process for 6"},
+                    {image: num_7, caption: "Denoising Process for 7"},
+                    {image: num_8, caption: "Denoising Process for 8"},
+                    {image: num_9, caption: "Denoising Process for 9"},
+                ].map((item, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                    <img src={item.image} alt={`image-${index}`} style={{ width: '100%', height: 'auto', maxWidth: '75px' }} />
+                    <p>{item.caption}</p>
+                    </div>
+                ))}
+            </div>
+            <h1 className="lvl2-header">Reflection</h1>
+            <p className="text">
+                I definitely think this was the coolest project we've done this semester so far. I really enjoyed part B of the project, 
+                where we had the opportunity of creating our own diffusion models from scratch. I think I'll definitely try to read the paper in more depth
+                to try and understand some of the things we skipped over in this project (like deriving the iterative denoising formulas). I also think 
+                that part A was very interesting. I especially enjoyed the final few sub-parts, where we created hybrid images using low-high frequency techniques,
+                which reminded me of project 2. It's nice to see how more simple image processing techniques can still be useful when paired powerful contemporary
+                techniques like diffusion.
+            </p>
             <br/><br/><br/><br/><br/><br/>
         </div>
     );
