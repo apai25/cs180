@@ -421,6 +421,7 @@ const NeRF = () => {
                     This was definitely my favorite project this semester. I thought it was really cool how everything we learned about 3D, transformations, and camera extrinsics/intrinsics accumulated can accumulate itself into cutting-edge technology that is 
                     at the forefront of modern-day 3D computer vision. My favorite part of this project was creating the NeRF video at the end; it was cool to see how well the model performed on viewpoints that it hadn't seen before. 
                 </p>
+                <br/><br/><br/><br/><br/><br/>
             </div>
         </div>
     )
