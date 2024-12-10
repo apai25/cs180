@@ -6,6 +6,7 @@ import Proj02 from "./components/projects/proj02/Proj02";
 import Proj03 from "./components/projects/proj03/Proj03";
 import Proj04 from "./components/projects/proj04/Proj04";
 import Proj05 from "./components/projects/proj05/Proj05";
+import NeRF from "./components/projects/nerf/NeRF";
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/proj03" element={<Proj03 />} />
         <Route path="/proj04" element={<Proj04 />} />
         <Route path="/proj05" element={<Proj05 />} />
+        <Route path="/nerf" element={<NeRF />} />
       </Routes>
     </Router>
   );

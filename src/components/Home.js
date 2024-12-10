@@ -42,6 +42,13 @@ const Home = () => {
                         implementing our very own time-conditioned and class-conditioned UNet-based diffusion models. 
                     </p>
                 </div>
+                <div className="project-entry">
+                    <h2 className="project-header"><Link to="/nerf"className="link">Final Project: Neural Radiance Fields</Link></h2>
+                    <p className="project-desc">
+                        In this project, we implement a Neural Radiance Field (NeRF) model to render 3D scenes from 2D images. We do this from scratch in PyTorch, 
+                        and use the model to render dynamic 3D scenes from unseen viewpoints. 
+                    </p>
+                </div>
             </div>
         </div>
     );
