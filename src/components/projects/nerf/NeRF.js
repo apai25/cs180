@@ -164,7 +164,7 @@ const NeRF = () => {
                 </div>
                 <img src={dog_test_default_param_psnr_curve} alt="psnr-curve" style={{ marginLeft: '30%', width: '100%', height: 'auto', maxWidth: '500px', marginTop: '40px' }} />
                 <br/><br/><br/>
-                <h1 className="lvl4-header">L = 15, Hidden Dims = [64, 64, 64, 64, 64]</h1>
+                <h1 className="lvl4-header">L = 15, Hidden Dims = [64, 64, 64, 64, 64, 64]</h1>
                 <div className="image-table" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', marginTop: '40px' }}>
                     {[
                         {image: dog_test_high_dim_100, caption: "Iter 100"},
