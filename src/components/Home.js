@@ -43,10 +43,16 @@ const Home = () => {
                     </p>
                 </div>
                 <div className="project-entry">
-                    <h2 className="project-header"><Link to="/nerf"className="link">Final Project: Neural Radiance Fields</Link></h2>
+                    <h2 className="project-header"><Link to="/nerf" className="link">Final Project: Neural Radiance Fields</Link></h2>
                     <p className="project-desc">
                         In this project, we implement a Neural Radiance Field (NeRF) model to render 3D scenes from 2D images. We do this from scratch in PyTorch, 
-                        and use the model to render dynamic 3D scenes from unseen viewpoints. 
+                        and use the model to render dynamic 3D scenes from unseen viewpoints.
+                    </p>
+                </div>
+                <div className="project-entry">
+                    <h2 className="project-header"><Link to="/cs280-final" className="link">CS 280 Final Project: Action-Conditioned Visual Prediction for Robotic Manipulation</Link></h2>
+                    <p className="project-desc">
+                        This project explores action-conditioned visual prediction techniques for robotic manipulation, focusing on enhancing prediction accuracy and efficiency.
                     </p>
                 </div>
             </div>
